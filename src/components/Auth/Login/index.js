@@ -36,7 +36,7 @@ const SignInSide =  () => {
     const password = data.get("password")
 
     const response = await axios
-      .post(`http://localhost:30001/accounts/auth/login`, {
+      .post(`http://localhost:3001/auth/login`, {
         email,
         password,
       })
