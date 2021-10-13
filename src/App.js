@@ -5,7 +5,7 @@ import PrivateRoute from "./components/Routes/PrivateRoute"
 import PublicRoute from "./components/Routes/PublicRoute"
 import Layout from "./components/Layout"
 import { AuthContext } from "./Context/AuthContext"
-
+import List from "./components/List"
 function App() {
   const [state, setState] = useContext(AuthContext)
 
@@ -23,6 +23,7 @@ function App() {
           to="/login"
         /> */}
         </Switch>
+        <List title="test"/>
       </Layout>
     </BrowserRouter>
   )
