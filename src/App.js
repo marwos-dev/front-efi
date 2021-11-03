@@ -14,7 +14,7 @@ function App() {
       <Layout>
         <Switch>
           <PublicRoute exact path="/login" component={SignInSide} />
-
+          
           {/* <PrivateRoute
           values={state}
           exact

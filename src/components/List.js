@@ -1,0 +1,103 @@
+import React, {useState, useEffect} from "react";
+import Card from "./Card";
+import Create from "./Create";
+import {Droppable, Draggable} from "react-beautiful-dnd"; // es para poder arrastrar los elementos
+import styled from "styled-components";
+import { connect, Provider } from "react-redux";
+import {editarTitulo} from "../actions";
+import { Container } from "@material-ui/core";
+
+const ListContainer = styled.div`
+    backgroud-color. #dfe3e6;
+    border-radius: 3px;
+    width:300px;
+    padding: 8px;
+    height:100%;
+    margin: 0, 8px, 0 0;
+
+`;
+
+const List = ({title,cards, listID, index, dispatch}) =>{
+    const [isEditar, setIsEditar] = useState(false);
+    const[listTitle,setListTitle] = useState("title");
+
+    const StyledInput = styled.input `
+    width:100%;
+    border: none; 
+    outline_color:blue;
+    border-radius: 3px;
+    margin-bottom: 3px;
+    padding:5px;
+    
+    `
+const renderEditarInput =() => {
+ 
+    return (
+        <StyledInput
+            type= "text"
+            value={listTitle}
+            onChange={handleChange}
+            autoFocus
+            onFocus={handleFocus}
+            onBlur={handleFinalizarEdicion}
+           
+        />
+    );
+};
+
+const handleFocus = e => {
+    console.log("Hola");
+
+    e.target.select();
+};
+
+const handledChange = e => {
+    e.preventDefault();
+    setListTitle(e.target.value);
+};
+
+const handleFinalizarEdicion = e => {
+    setIsEditar(false);
+    dispatch(editarTitulo(listID,listTitle));
+};
+
+return (
+    <Draggable draggableId={String(listID)} index={index}>
+        {provided => (
+            <ListContainer
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+            >
+                <Droppable droppableId={String(listID)} type= "card">
+                    {provided => (
+                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                            {isEditar ? (
+                                renderEditarInput()
+                            ) : (
+                                <h4 onClick ={() => setIsEditar(true)}>{listTitle}</h4>
+                            )}
+
+                            {cards.map((card, index)=> (
+                                <Card
+                                    key={card.id}
+                                    text={card.text}
+                                    id={card.id}
+                                    index={index}
+                                    listID={listID}
+                                />
+                            ))}
+                            {provided.placeholder}
+                            <Create listID={listID}/>
+                        </div>
+                    )}
+                </Droppable>
+            </ListContainer>
+        )}
+    </Draggable>
+);
+
+
+};
+
+export default connect()(List);
