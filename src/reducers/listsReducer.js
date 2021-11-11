@@ -1,27 +1,27 @@
-import {loremIpsum} from "lorem-ipsum";
+// import loremIpsum from "lorem-ipsum";
 import { CONSTANTS } from "../actions";
 
 let listID = 2;
 let CardID = 6;
 
-const lorem = new loremIpsum({
-    sentencesPerParagraph: {
-        max:8,
-        min:1
-    },
-    wordsPerSentence:{
-        max:16,
-        min:1
-    }
-});
+// const lorem = new loremIpsum({
+//     sentencesPerParagraph: {
+//         max:8,
+//         min:1
+//     },
+//     wordsPerSentence:{
+//         max:16,
+//         min:1
+//     }
+// });
 
 const getItems = count =>
-    Array.from({ length: count}(v, k)=>k).map(k =>({
-        id:`list-${k}`,
+    Array.from({ length: count }, (v, k) => k).map(k => ({
+        id: `list-${k}`,
         title: `list ${k}`,
-        cards:[...new Array(k)].map((_,index)=>
-            lorem.generateSentences(Math.floor(Math.random()*5))
-        )
+        cards: [...new Array(k)].map((_, index) =>
+       "adjfeo" )
+        
     }));
 
 const StateInicial = getItems(10);
@@ -30,7 +30,7 @@ const listReducer = (state= StateInicial,action) => {
     switch (action.type) {
         case CONSTANTS.AGREGAR_LISTA:
             const nuevaLista ={
-                title:action.payload
+                title:action.payload,
                 cards:[],
                 id:`list-${listID}`
             };
@@ -76,7 +76,7 @@ const listReducer = (state= StateInicial,action) => {
 
             if (type=== "list" ){
                 const list = nuevoEstado.splice(droppableIndexStart,1);
-                nuevoEstado.splice(droppableIndexEnd,0 ...list);
+                nuevoEstado.splice(droppableIndexEnd,0 ,...list);
                 return nuevoEstado;
             }
             
@@ -109,14 +109,46 @@ const listReducer = (state= StateInicial,action) => {
   
             return nuevoEstado;
             
-  
-  
-  
+            case CONSTANTS.EDITAR_CARD:{ 
+                const {id, listID,newText} = action.payload;
+                return state.map(list => {
+                    if(list.id === listID){
+                        const nuevaCard= list.cards.filter(card => card.id !== id);
+                        return { ...list, cards: nuevaCard};
+                    } else{
+                        return list;
+                    }
+                });
+
+            }
+            case CONSTANTS.BORRAR_CARD:{
+                const {id,listID}= action.payload;
+                return state.map(list => {
+                    if (list.id === listID){
+                        const nuevaCard =list.cards.filter(card => card.id !==id);
+                        return {...list, cards : nuevaCard};
+                    } else{
+                        return list;
+                    }
+                });
+            }
+
+            case CONSTANTS.EDITAR_TITULO_LISTA:{
+                const { listID,nuevoTituloLista} = action.payload;
+                return state.map(list => {
+                    if (list.id === listID){
+                        list.title = nuevoTituloLista;
+                        return list;
+                    } else{
+                        return list;
+                    }
+                });
+            }
+            default:
+                return state;
         }
 
+}; 
 
-
-
-
-}
+export default listReducer;
 

@@ -6,10 +6,11 @@ import {Draggable} from "react-beautiful-dnd";
 import { styled } from "@material-ui/core";
 import { Icon } from "@material-ui/core";
 import Form from "./Forms";
-import {editCard,BorrarCard} from "../actions";
+import { agregarCard, editarCard, borrarCard} from "../actions";
 import {connect} from "react-redux";
-import Button from "./Button";
+import Boton from "./Boton";
 import List from "./List";
+
 
 
 const card = React.memo(({text,id,listId,index,dispatch})=>{
@@ -67,18 +68,18 @@ const card = React.memo(({text,id,listId,index,dispatch})=>{
     const GuardarCard = e =>{
         e.preventDefault();
 
-        dispatch(editCard(id,listId,cardText));
+        dispatch(editarCard(id,listId,cardText));
     };
 
     const handleBorrarCard = e => {
-        dispatch(BorrarCard(id,listId));
+        dispatch(borrarCard(id,listId));
 
     };
 
     const renderEditarForm = () =>{
         return(
             <Form text ={cardText} onChange ={handleChange}>
-                <Button onClick={GuardarCard}> Guardar</Button>
+                <Boton onClick={GuardarCard}> Guardar</Boton>
             </Form>
         );
 

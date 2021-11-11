@@ -2,9 +2,9 @@ import React from "react";
 import { Button, Icon } from "@material-ui/core";
 import Boton from "./Boton";
 import { connect } from "react-redux";
-import {addList, addCard} from "../actions";
+import { agregarList, agregarCard} from "../actions";
 import styled from "styled-components";
-import Form from "./forms";
+import Form from "./Forms";
 import AbrirForm from "./AbrirForm";
 
 class Create extends React.PureComponent{
@@ -15,13 +15,13 @@ class Create extends React.PureComponent{
 
     AbrirForm = ()=>{
         this.setState({
-            formOpen:true
+            AbrirForm:true
         });
     };
 
     CerrarForm = e =>{
         this.setState({
-            formOpen:false
+            AbrirForm:false
         });
     };
 
@@ -39,7 +39,7 @@ class Create extends React.PureComponent{
             this.setState({
                 text:""
             });
-            dispatch(addList(text));
+            dispatch(agregarList(text));
         }
         return;
 
@@ -53,7 +53,7 @@ class Create extends React.PureComponent{
             this.setState({
                 text:""
             });
-            dispatch(addCard(listID,text));
+            dispatch(agregarCard(listID,text));
         }
     };
 

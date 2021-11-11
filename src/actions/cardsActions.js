@@ -3,7 +3,7 @@ import {CONSTANTS} from "../actions";
 export const agregarCard = (listId,Text ) => {
     return {
         type: CONSTANTS.AGREGAR_CARD,
-        payload: {text,listId}
+        payload: {Text,listId}
     };
 };
 
@@ -14,9 +14,9 @@ export const editarCard = (id,listId,newText) => {
     };
 };
 
-export const borrarCard = (id,listId) => {
-    return {
+export const borrarCard = (id,listId) =>{
+    return{
         type: CONSTANTS.BORRAR_CARD,
-        payload:(id,listId)
+        payload: {id,listId}
     };
 };

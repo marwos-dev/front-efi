@@ -36,7 +36,7 @@ const renderEditarInput =() => {
         <StyledInput
             type= "text"
             value={listTitle}
-            onChange={handleChange}
+            onChange={this.handleChange}
             autoFocus
             onFocus={handleFocus}
             onBlur={handleFinalizarEdicion}
